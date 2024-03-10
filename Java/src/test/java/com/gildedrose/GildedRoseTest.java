@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.gildedrose.enums.ItemNameEnum.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GildedRoseTest {
@@ -58,10 +59,11 @@ class GildedRoseTest {
     private static Stream<Arguments> agedBrieUpdateScenarios() {
         return Stream.of(
             // Aged Brie increases in quality the older it gets
-            Arguments.of("Aged Brie", 5, 10, 4, 11),
-            // The quality is never above 50
-            Arguments.of("Aged Brie", 2, 50, 1, 50),
-            Arguments.of("Aged Brie", -2, 40, -3, 42)
+            Arguments.of(AGED_BRIE.getValue(), 5, 10, 4, 11),
+            // The quality is never above 50 for Bries
+            Arguments.of(AGED_BRIE.getValue(), 2, 50, 1, 50),
+            // The quality increases twice as fast after the sell by date for Brie
+            Arguments.of(AGED_BRIE.getValue(), -2, 40, -3, 42)
         );
     }
 
@@ -76,7 +78,7 @@ class GildedRoseTest {
     private static Stream<Arguments> sulfurasUpdateScanarios() {
         return Stream.of(
             // Sulfuras never has to be sold and never decreases in quality
-            Arguments.of("Sulfuras, Hand of Ragnaros", 0, 80, 0, 80)
+            Arguments.of(SULFURAS.getValue(), 0, 80, 0, 80)
         );
 
     }
@@ -91,12 +93,18 @@ class GildedRoseTest {
 
     private static Stream<Arguments> backstagePassUpdateScenarios() {
         return Stream.of(
-            Arguments.of("Backstage passes to a TAFKAL80ETC concert", 11, 10, 10, 11), // SellIn > 10
-            Arguments.of("Backstage passes to a TAFKAL80ETC concert", 10, 10, 9, 12), // 10 >= SellIn > 5
-            Arguments.of("Backstage passes to a TAFKAL80ETC concert", 5, 10, 4, 13), // 5 >= SellIn > 0
-            Arguments.of("Backstage passes to a TAFKAL80ETC concert", 0, 10, -1, 0), // SellIn = 0
-            Arguments.of("Backstage passes to a TAFKAL80ETC concert", 5, 50, 4, 50), // SellIn < 10, Quality = 50
-            Arguments.of("Backstage passes to a TAFKAL80ETC concert", 0, 50, -1, 0) // SellIn = 0, Quality = 50
+            // Quality increases by 1 when there are more than 10 days left
+            Arguments.of(BACKSTAGE_PASSES.getValue(), 11, 10, 10, 11),
+            // Quality increases by 2 when there are 10 days or less
+            Arguments.of(BACKSTAGE_PASSES.getValue(), 10, 10, 9, 12),
+            // Quality increases by 3 when there are 5 days or less
+            Arguments.of(BACKSTAGE_PASSES.getValue(), 5, 10, 4, 13),
+            // Quality drops to 0 after the concert
+            Arguments.of(BACKSTAGE_PASSES.getValue(), 0, 10, -1, 0),
+            // Quality is never above 50
+            Arguments.of(BACKSTAGE_PASSES.getValue(), 5, 50, 4, 50),
+            // Quality is never above 50 and gets to 0 after the concert
+            Arguments.of(BACKSTAGE_PASSES.getValue(), 0, 50, -1, 0) // SellIn = 0, Quality = 50
         );
     }
 
@@ -111,7 +119,8 @@ class GildedRoseTest {
     // Falling for the moment because code not implemented yet !
     private static Stream<Arguments> conjuredItemUpdateScenarios() {
         return Stream.of(
-            Arguments.of("Conjured", 10, 10, 9, 8) // Quality decreases twice as fast
+            // Quality decreases twice as fast
+            Arguments.of(CONJURED.getValue(), 10, 10, 9, 8)
         );
     }
 }
