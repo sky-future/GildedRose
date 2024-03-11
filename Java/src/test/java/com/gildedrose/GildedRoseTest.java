@@ -17,14 +17,14 @@ class GildedRoseTest {
     void foo() {
         Item[] items = new Item[] { new Item("foo", 0, 0) };
         GildedRose app = new GildedRose(items);
-        app.updateQuality();
+        app.updateInventory();
         assertEquals("foo", app.items[0].name);
     }
 
     private void testUpdateInventory(String itemName, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
         Item[] items = new Item[] { new Item(itemName, sellIn, quality) };
         GildedRose gildedRose = new GildedRose(items);
-        gildedRose.updateQuality();
+        gildedRose.updateInventory();
         assertEquals(expectedSellIn, gildedRose.items[0].sellIn);
         assertEquals(expectedQuality, gildedRose.items[0].quality);
     }
