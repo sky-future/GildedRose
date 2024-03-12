@@ -14,6 +14,8 @@ public class UpdateQualityStrategyFactory {
                 return new BackstageItemUpdateStrategy();
             case SULFURAS:
                 return new SulfureItemUpdateStrategy();
+            case CONJURED:
+                return new ConjuredItemUpdateStrategy();
             default:
                 return new RegularItemUpdateStrategy();
         }

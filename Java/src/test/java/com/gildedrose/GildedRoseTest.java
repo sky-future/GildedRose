@@ -104,7 +104,7 @@ class GildedRoseTest {
             // Quality is never above 50
             Arguments.of(BACKSTAGE_PASSES.getValue(), 5, 50, 4, 50),
             // Quality is never above 50 and gets to 0 after the concert
-            Arguments.of(BACKSTAGE_PASSES.getValue(), 0, 50, -1, 0) // SellIn = 0, Quality = 50
+            Arguments.of(BACKSTAGE_PASSES.getValue(), 0, 50, -1, 0)
         );
     }
 
@@ -116,11 +116,14 @@ class GildedRoseTest {
         testUpdateInventory(itemName, sellIn, quality, expectedSellIn, expectedQuality);
     }
 
-    // Falling for the moment because code not implemented yet !
     private static Stream<Arguments> conjuredItemUpdateScenarios() {
         return Stream.of(
             // Quality decreases twice as fast
-            Arguments.of(CONJURED.getValue(), 10, 10, 9, 8)
+            Arguments.of(CONJURED.getValue(), 10, 10, 9, 8),
+            // Quality decreases twice as fast after the sell by date
+            Arguments.of(CONJURED.getValue(), 0, 10, -1, 6),
+            // Quality is never negative
+            Arguments.of(CONJURED.getValue(), 0, 1, -1, 0)
         );
     }
 }
