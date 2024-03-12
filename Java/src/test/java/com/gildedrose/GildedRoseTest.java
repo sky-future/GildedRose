@@ -112,7 +112,7 @@ class GildedRoseTest {
     @ParameterizedTest
     @MethodSource("conjuredItemUpdateScenarios")
     @DisplayName("Conjured Items Updates")
-    void smellyItemsUpdates(String itemName, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
+    void conjuredItemsUpdate(String itemName, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
         testUpdateInventory(itemName, sellIn, quality, expectedSellIn, expectedQuality);
     }
 

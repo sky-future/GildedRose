@@ -5,6 +5,11 @@ import com.gildedrose.enums.ItemNameEnum;
 
 public class UpdateQualityStrategyFactory {
 
+    private UpdateQualityStrategyFactory() {
+        // Prevent instantiation
+        throw new IllegalStateException("Utility class");
+    }
+
     public static UpdateQualityStrategyInterface getStrategy(Item item){
         ItemNameEnum itemName = ItemNameEnum.fromString(item.name);
         switch (itemName){
